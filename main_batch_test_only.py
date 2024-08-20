@@ -7,7 +7,7 @@ from sklearn.model_selection import train_test_split
 import numpy as np
 import argparse
 import matplotlib.pyplot as plt
-from models_batch import VanillaLSTM, VanillaRNN, VanillaGRU, VanillaReLURNN, VanillaReLURNNCorrectInitialisation, VanillaReLURNNCorrectInitialisationWithBias
+from models import VanillaLSTM, VanillaRNN, VanillaGRU, VanillaReLURNN, VanillaReLURNNCorrectInitialisation, VanillaReLURNNCorrectInitialisationWithBias
 from Dyck_Generator_Suzgun_Batch import DyckLanguage
 import random
 from torch.utils.tensorboard import SummaryWriter
