@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-from DNNC import DNNC
+from DNNC import DNNC, DNNCNN
 from torch.nn.utils.rnn import pack_padded_sequence, pad_packed_sequence
 
 
@@ -480,13 +480,50 @@ class RecurrentDNNC(nn.Module):
         self.output_activation=output_activation
 
         self.fc1 = nn.Linear(input_size,hidden_size)
-        self.dnnc = DNNC()
+        # self.dnnc = DNNC()
+        self.dnnc = DNNCNN()
         self.fc2 = nn.Linear(hidden_size,output_size)
         self.sigmoid = nn.Sigmoid()
 
 
-    def forward(self,x,state):
-        x = self.fc1(x)
+    # def forward(self,x,state):
+    #     x = self.fc1(x)
+
+    def forward(self,x,length):
+        x = pack_padded_sequence(x, length, batch_first=True)
+        h0 = self.init_hidden()
+
+        x, h0 = self.fc1(x, h0)
+
+        # x, state = self.dnnc(x,)
+
+        x = self.dnnc(x)
+
+        x, _ = pad_packed_sequence(x, batch_first=True)
+
+        x = x.contiguous()
+
+        x = x.view(-1, x.shape[2])
+
+        x = self.fc2(x)
+
+        x = self.sigmoid(x).view(-1, self.output_size)
+
+        return x
+
+    def init_hidden(self):
+        return torch.zeros(self.num_layers, self.batch_size, self.hidden_size).to(device)
+
+    def mask(self, Y_hat, Y, X_lengths):
+        Y_hat_out = torch.zeros(Y_hat.shape)
+
+        max_batch_length = max(X_lengths)
+
+        for i in range(self.batch_size):
+            Y_hat_out[i * max_batch_length:(i * max_batch_length + X_lengths[i])] = Y_hat[i * max_batch_length:(
+                        i * max_batch_length + X_lengths[i])]
+
+        return Y_hat_out.to(device)
 
 
 
