@@ -7,7 +7,7 @@ from sklearn.model_selection import train_test_split
 import numpy as np
 import argparse
 import matplotlib.pyplot as plt
-from models import VanillaLSTM, VanillaRNN, VanillaGRU, VanillaReLURNN, VanillaReLURNN_NoBias, VanillaReLURNNCorrectInitialisation, VanillaReLURNNCorrectInitialisationWithBias
+from models import VanillaLSTM, VanillaRNN, VanillaGRU, VanillaReLURNN, VanillaReLURNN_NoBias, VanillaReLURNNCorrectInitialisation, VanillaReLURNNCorrectInitialisationWithBias, RecurrentDNNC
 from Dyck_Generator_Suzgun_Batch import DyckLanguage
 import random
 from torch.utils.tensorboard import SummaryWriter
@@ -337,6 +337,10 @@ def select_model(model_name, input_size, hidden_size, num_layers,batch_size, num
     elif model_name == 'VanillaReLURNNCorrectInitialisationWithBias':
         model = VanillaReLURNNCorrectInitialisationWithBias(input_size, hidden_size, num_layers, batch_size, num_classes,
                                                     output_activation=output_activation)
+    elif model_name=='RecurrentDNNC':
+        model = RecurrentDNNC(input_size, hidden_size, num_layers, batch_size, num_classes, output_activation=output_activation)
+
+
 
     return model.to(device)
 
