@@ -71,9 +71,11 @@ output_size = args.output_size
 runtime = args.runtime
 
 
-checkpoint_step = int(num_epochs/4)
+# checkpoint_step = int(num_epochs/4)
 if args.checkpoint_step!=0:
     checkpoint_step = args.checkpoint_step
+else:
+    checkpoint_step = int(num_epochs / 4)
 
 shuffle_dataset = args.shuffle_dataset
 
