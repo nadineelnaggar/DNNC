@@ -491,10 +491,10 @@ class RecurrentDNNC(nn.Module):
 
     def forward(self,x,length):
         x = pack_padded_sequence(x, length, batch_first=True)
-        h0 = self.init_hidden()
+        # h0 = self.init_hidden()
 
-        x, h0 = self.fc1(x, h0)
-
+        # x, h0 = self.fc1(x, h0)
+        x = self.fc1(x)
         # x, state = self.dnnc(x,)
 
         x = self.dnnc(x)
