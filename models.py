@@ -513,7 +513,7 @@ class RecurrentDNNC(nn.Module):
         # x = x.contiguous()
         #
         # x = x.view(-1, x.shape[2])
-
+        x = x.clone()
         x = self.fc2(x)
 
         x = self.sigmoid(x).view(-1, self.output_size)
