@@ -502,6 +502,7 @@ class RecurrentDNNC(nn.Module):
         # x = pack_padded_sequence(x, length, batch_first=True)
         # print('x packed sequence ',x)
         # for i in range(length.item()):
+        print('x.shape = ',x.shape)
         for i in range(x.size()[0]):
             x[0][i] = self.dnnc(x[0][i])
             print('x[0][',i,'] = ',x[0][i])
