@@ -503,17 +503,19 @@ class RecurrentDNNC(nn.Module):
         # print('x packed sequence ',x)
         # for i in range(length.item()):
         print('x.shape = ',x.shape)
+        x1 = x.clone()
         for i in range(x.size()[1]):
-            x[0][i] = self.dnnc(x[0][i])
-            print('x[0][',i,'] = ',x[0][i])
-        print('x after DNNC ',x)
+            x1[0][i] = self.dnnc(x[0][i])
+            print('x1[0][',i,'] = ',x1[0][i])
+        print('x after DNNC ',x1)
 
         # x, _ = pad_packed_sequence(x, batch_first=True)
         #
         # x = x.contiguous()
         #
         # x = x.view(-1, x.shape[2])
-        x = x.clone()
+        # x = x.clone()
+        x = x1.clone()
         x = self.fc2(x)
 
         x = self.sigmoid(x).view(-1, self.output_size)
