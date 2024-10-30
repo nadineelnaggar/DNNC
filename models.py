@@ -503,7 +503,7 @@ class RecurrentDNNC(nn.Module):
         # print('x packed sequence ',x)
         # for i in range(length.item()):
         print('x.shape = ',x.shape)
-        for i in range(x.size()[0]):
+        for i in range(x.size()[1]):
             x[0][i] = self.dnnc(x[0][i])
             print('x[0][',i,'] = ',x[0][i])
         print('x after DNNC ',x)
