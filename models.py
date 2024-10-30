@@ -494,20 +494,20 @@ class RecurrentDNNC(nn.Module):
         # h0 = self.init_hidden()
 
         # x, h0 = self.fc1
-        print('length = ',length)
-        print('x before linear layer ',x)
+        # print('length = ',length)
+        # print('x before linear layer ',x)
         x = self.fc1(x)
-        print('x after linear layer ',x)
+        # print('x after linear layer ',x)
         # x, state = self.dnnc(x,)
         # x = pack_padded_sequence(x, length, batch_first=True)
         # print('x packed sequence ',x)
         # for i in range(length.item()):
-        print('x.shape = ',x.shape)
+        # print('x.shape = ',x.shape)
         x1 = x.clone()
         for i in range(x.size()[1]):
             x1[0][i] = self.dnnc(x[0][i])
-            print('x1[0][',i,'] = ',x1[0][i])
-        print('x after DNNC ',x1)
+        #     print('x1[0][',i,'] = ',x1[0][i])
+        # print('x after DNNC ',x1)
 
         # x, _ = pad_packed_sequence(x, batch_first=True)
         #
