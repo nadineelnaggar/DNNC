@@ -187,7 +187,8 @@ class DNNCNN(nn.Module):
         if y==None:
             y = torch.tensor([self.stack_depth, self.false_pop_count], requires_grad=True)
 
-
+        print('x input to DNNC ',x)
+        print('y input to DNNC ',y)
         x = self.dnnc(x,y)
 
 
