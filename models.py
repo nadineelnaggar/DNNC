@@ -484,6 +484,7 @@ class RecurrentDNNC(nn.Module):
         self.dnnc = DNNCNN()
         self.fc2 = nn.Linear(hidden_size,output_size)
         self.sigmoid = nn.Sigmoid()
+        self.model_name='RecurrentDNNC'
 
 
     # def forward(self,x,state):
