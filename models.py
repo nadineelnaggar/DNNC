@@ -507,8 +507,9 @@ class RecurrentDNNC(nn.Module):
         x1 = x.clone()
         y = torch.tensor([[0,0]], dtype=torch.float32)
         for i in range(x.size()[1]):
-            x1[0][i], y = self.dnnc(x[0][i], y)
+            x1[0][i] = self.dnnc(x[0][i], y)
         #     print('x1[0][',i,'] = ',x1[0][i])
+            y = x1[0][i].clone()
         # print('x after DNNC ',x1)
 
         # x, _ = pad_packed_sequence(x, batch_first=True)
