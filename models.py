@@ -505,7 +505,7 @@ class RecurrentDNNC(nn.Module):
         # for i in range(length.item()):
         # print('x.shape = ',x.shape)
         x1 = x.clone()
-        y = torch.tensor([0,0], dtype=torch.float32)
+        y = torch.tensor([[0],[0]], dtype=torch.float32)
         for i in range(x.size()[1]):
             x1[0][i], y = self.dnnc(x[0][i], y)
         #     print('x1[0][',i,'] = ',x1[0][i])
