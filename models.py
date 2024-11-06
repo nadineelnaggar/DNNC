@@ -510,7 +510,7 @@ class RecurrentDNNC(nn.Module):
         for i in range(x.size()[1]):
             x1[0][i] = self.dnnc(x[0][i], y)
         #     print('x1[0][',i,'] = ',x1[0][i])
-            y = x1[0][i].clone()
+            y = x1[0][i].clone().detach()
             # print('y after DNNC = ',y)
         # print('x after DNNC ',x1)
 
