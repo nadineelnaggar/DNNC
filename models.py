@@ -496,7 +496,7 @@ class RecurrentDNNC(nn.Module):
 
         # x, h0 = self.fc1
         # print('length = ',length)
-        # print('x before linear layer ',x)
+        print('x before linear layer ',x)
         x = self.fc1(x)
         # print('x after linear layer ',x)
         # x, state = self.dnnc(x,)
