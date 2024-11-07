@@ -504,6 +504,7 @@ class RecurrentDNNC(nn.Module):
         # print('x packed sequence ',x)
         # for i in range(length.item()):
         # print('x.shape = ',x.shape)
+        print('x after linear layer ',x)
         x1 = x.clone()
         y = torch.tensor([0,0], dtype=torch.float32)
         print('y before dnnc = ',y)
