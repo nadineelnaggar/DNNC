@@ -508,6 +508,7 @@ class RecurrentDNNC(nn.Module):
         y = torch.tensor([0,0], dtype=torch.float32)
         print('y before dnnc = ',y)
         for i in range(x.size()[1]):
+            print('x1[0][',i,'] before DNNC')
             x1[0][i] = self.dnnc(x[0][i], y)
             print('x1[0][',i,'] = ',x1[0][i])
         #     y = x1[0][i].clone().detach()
