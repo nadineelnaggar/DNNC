@@ -841,7 +841,8 @@ def validate_model(model, loader, dataset, run, epoch):
                 accuracy) + '%, train val loss = ' + str(loss.item() / len(ds)) + '\n')
 
 
-    return accuracy, loss.item()/len(ds)
+    # return accuracy, loss.item()/len(ds)
+    return accuracy, total_loss / len(ds)
 
 
 def validate_model_long(model, loader, dataset, run, epoch):
@@ -902,7 +903,8 @@ def validate_model_long(model, loader, dataset, run, epoch):
         f.write('val accuracy for run'+str(run)+' epoch '+str(epoch)+' = ' + str(accuracy)+'%, val loss = '+str(loss.item()/len(ds)) + '\n')
 
 
-    return accuracy, loss.item()/len(ds)
+    # return accuracy, loss.item()/len(ds)
+    return accuracy, total_loss / len(ds)
 
 def test_model(model, loader, dataset):
     model.eval()
