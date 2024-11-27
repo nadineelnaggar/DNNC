@@ -496,7 +496,7 @@ class RecurrentDNNC(nn.Module):
 
         # x, h0 = self.fc1
         # print('length = ',length)
-        print('x before linear layer ',x)
+        # print('x before linear layer ',x)
         x = self.fc1(x)
         # print('x after linear layer ',x)
         # x, state = self.dnnc(x,)
@@ -504,18 +504,18 @@ class RecurrentDNNC(nn.Module):
         # print('x packed sequence ',x)
         # for i in range(length.item()):
         # print('x.shape = ',x.shape)
-        print('x after linear layer ',x)
+        # print('x after linear layer ',x)
         x1 = x.clone()
         y = torch.tensor([0,0], dtype=torch.float32)
-        print('y before dnnc = ',y)
+        # print('y before dnnc = ',y)
         for i in range(x.size()[1]):
-            print('x[0][',i,'] before DNNC = ', x[0][i])
+            # print('x[0][',i,'] before DNNC = ', x[0][i])
             x1[0][i] = self.dnnc(x[0][i], y)
-            print('x1[0][',i,'] = ',x1[0][i])
+            # print('x1[0][',i,'] = ',x1[0][i])
         #     y = x1[0][i].clone().detach()
             y = x1[0][i].clone()
-            print('y after DNNC = ',y)
-        print('x after DNNC ',x1)
+            # print('y after DNNC = ',y)
+        # print('x after DNNC ',x1)
 
         # x, _ = pad_packed_sequence(x, batch_first=True)
         #
