@@ -602,9 +602,9 @@ def train(model, loader, sum_writer, run=0):
             loss.backward()
             optimiser.step()
 
-            print('output sequence = ',output_seq)
-            print('target sequence = ',target_seq)
-            print('loss = ',loss)
+            # print('output sequence = ',output_seq)
+            # print('target sequence = ',target_seq)
+            # print('loss = ',loss)
 
             if print_flag == True:
                 with open(train_log_raw, 'a') as f:
