@@ -544,6 +544,81 @@ class RecurrentDNNC(nn.Module):
 
         return Y_hat_out.to(device)
 
+class RecurrentDNNCClipping(nn.Module):
+    def __init__(self, input_size, hidden_size, num_layers, batch_size, output_size, output_activation='Sigmoid'):
+        super(RecurrentDNNCClipping,self).__init__()
+        self.input_size=input_size
+        self.hidden_size = hidden_size
+        self.num_layers=num_layers
+        self.batch_size=batch_size
+        self.output_size=output_size
+        self.output_activation=output_activation
+
+        self.fc1 = nn.Linear(input_size,hidden_size)
+        # self.dnnc = DNNC()
+        self.dnnc = DNNCNN()
+        self.fc2 = nn.Linear(hidden_size,output_size)
+        self.sigmoid = nn.Sigmoid()
+        self.model_name='RecurrentDNNCClipping'
+
+
+    # def forward(self,x,state):
+    #     x = self.fc1(x)
+
+    def forward(self,x,length):
+        # x = pack_padded_sequence(x, length, batch_first=True)
+        # h0 = self.init_hidden()
+
+        # x, h0 = self.fc1
+        # print('length = ',length)
+        # print('x before linear layer ',x)
+        x = self.fc1(x)
+        # print('x after linear layer ',x)
+        # x, state = self.dnnc(x,)
+        # x = pack_padded_sequence(x, length, batch_first=True)
+        # print('x packed sequence ',x)
+        # for i in range(length.item()):
+        # print('x.shape = ',x.shape)
+        # print('x after linear layer ',x)
+        x1 = x.clone()
+        y = torch.tensor([0,0], dtype=torch.float32)
+        # print('y before dnnc = ',y)
+        for i in range(x.size()[1]):
+            # print('x[0][',i,'] before DNNC = ', x[0][i])
+            x1[0][i] = self.dnnc(x[0][i], y)
+            # print('x1[0][',i,'] = ',x1[0][i])
+        #     y = x1[0][i].clone().detach()
+            y = x1[0][i].clone()
+            # print('y after DNNC = ',y)
+        # print('x after DNNC ',x1)
+
+        # x, _ = pad_packed_sequence(x, batch_first=True)
+        #
+        # x = x.contiguous()
+        #
+        # x = x.view(-1, x.shape[2])
+        # x = x.clone()
+        x = x1.clone()
+        x = self.fc2(x)
+
+        # x = self.sigmoid(x).view(-1, self.output_size)
+        x = torch.clamp(x,min=0,max=1).view(-1, self.output_size)
+        return x
+
+    def init_hidden(self):
+        return torch.zeros(self.num_layers, self.batch_size, self.hidden_size).to(device)
+
+    def mask(self, Y_hat, Y, X_lengths):
+        Y_hat_out = torch.zeros(Y_hat.shape)
+
+        max_batch_length = max(X_lengths)
+
+        for i in range(self.batch_size):
+            Y_hat_out[i * max_batch_length:(i * max_batch_length + X_lengths[i])] = Y_hat[i * max_batch_length:(
+                        i * max_batch_length + X_lengths[i])]
+
+        return Y_hat_out.to(device)
+
 
 
 
