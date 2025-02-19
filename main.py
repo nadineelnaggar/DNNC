@@ -13,7 +13,7 @@ import random
 from torch.utils.tensorboard import SummaryWriter
 # from tensorboardX import SummaryWriter
 from torch.utils.data import Dataset, DataLoader
-from Dyck1_Datasets import NextTokenPredictionLongTestDataset, NextTokenPredictionShortTestDataset, NextTokenPredictionTrainDataset, NextTokenPredictionValidationDataset, NextTokenPredictionLongTestDataset_SAMPLE, NextTokenPredictionShortTestDataset_SAMPLE, NextTokenPredictionTrainDataset_SAMPLE, NextTokenPredictionValidationDataset_SAMPLE
+from Dyck1_Datasets import NextTokenPredictionLongTestDataset, NextTokenPredictionShortTestDataset, NextTokenPredictionTrainDataset, NextTokenPredictionValidationDataset, NextTokenPredictionLongTestDataset_SAMPLE, NextTokenPredictionShortTestDataset_SAMPLE, NextTokenPredictionTrainDataset_SAMPLE, NextTokenPredictionValidationDataset_SAMPLE, NextTokenPrediction2TokenDataset
 from torch.optim.lr_scheduler import StepLR
 import math
 import time
@@ -34,7 +34,7 @@ np.random.seed(seed)
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--model_name', type=str, help='input model name (VanillaLSTM, VanillaRNN, VanillaGRU)')
-parser.add_argument('--task', type=str, help='NextTokenPrediction, BinaryClassification, TernaryClassification, NextTokenPredictionCrossEntropy, SemiDyck1MSE, SemiDyck1BCE')
+parser.add_argument('--task', type=str, help='NextTokenPrediction, BinaryClassification, TernaryClassification, NextTokenPredictionCrossEntropy, SemiDyck1MSE, SemiDyck1BCE, NextTokenPredictionSanityCheck')
 parser.add_argument('--feedback', type=str, help='EveryTimeStep, EndofSequence')
 parser.add_argument('--hidden_size', type=int, help='hidden size')
 parser.add_argument('--num_layers', type=int, help='number of layers', default=1)
@@ -303,6 +303,11 @@ if task=='SemiDyck1MSE' or task=='SemiDyck1BCE':
     test_dataset = SemiDyck1ShortTestDataset()
     long_dataset = SemiDyck1TestDataset()
     validation_dataset = SemiDyck1ValidationDataset()
+elif task=='NextTokenPredictionSanityCheck':
+    train_dataset = NextTokenPrediction2TokenDataset()
+    test_dataset = NextTokenPrediction2TokenDataset()
+    long_dataset = NextTokenPrediction2TokenDataset()
+    validation_dataset = NextTokenPrediction2TokenDataset()
 else:
     train_dataset = NextTokenPredictionTrainDataset()
     test_dataset = NextTokenPredictionShortTestDataset()
@@ -365,7 +370,7 @@ def main():
     if task == 'TernaryClassification':
         num_classes = 3
         output_activation = 'Softmax'
-    elif task == 'BinaryClassification' or task == 'NextTokenPrediction' or task == 'NextTokenPredictionCrossEntropy' or task=='SemiDyck1MSE' or task=='SemiDyck1BCE':
+    elif task == 'BinaryClassification' or task == 'NextTokenPrediction' or task == 'NextTokenPredictionCrossEntropy' or task=='SemiDyck1MSE' or task=='SemiDyck1BCE' or task=='NextTokenPredictionSanityCheck':
         num_classes = 2
         output_activation = 'Sigmoid'
 
