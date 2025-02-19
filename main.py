@@ -463,7 +463,7 @@ def main():
     for sheet_name in dfs.keys():
         dfs[sheet_name].to_excel(writer, sheet_name=sheet_name, index=False)
 
-    writer.save()
+    writer.close()
 
     max_train_accuracy = max(train_accuracies)
     min_train_accuracy = min(train_accuracies)
