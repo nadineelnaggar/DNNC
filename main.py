@@ -7,7 +7,7 @@ from sklearn.model_selection import train_test_split
 import numpy as np
 import argparse
 import matplotlib.pyplot as plt
-from models import VanillaLSTM, VanillaRNN, VanillaGRU, VanillaReLURNN, VanillaReLURNN_NoBias, VanillaReLURNNCorrectInitialisation, VanillaReLURNNCorrectInitialisationWithBias, RecurrentDNNC, RecurrentDNNCFrozenInputLayer
+from models import VanillaLSTM, VanillaRNN, VanillaGRU, VanillaReLURNN, VanillaReLURNN_NoBias, VanillaReLURNNCorrectInitialisation, VanillaReLURNNCorrectInitialisationWithBias, RecurrentDNNC, RecurrentDNNCFrozenInputLayer, RecurrentDNNCClipping
 from Dyck_Generator_Suzgun_Batch import DyckLanguage
 import random
 from torch.utils.tensorboard import SummaryWriter
@@ -348,9 +348,9 @@ def select_model(model_name, input_size, hidden_size, num_layers,batch_size, num
         model = RecurrentDNNC(input_size, hidden_size, num_layers, batch_size, num_classes, output_activation=output_activation)
     elif model_name=='RecurrentDNNCFrozenInputLayer':
         model = RecurrentDNNCFrozenInputLayer(input_size, hidden_size, num_layers, batch_size, num_classes, output_activation=output_activation)
-
-
-
+    elif model_name == 'RecurrentDNNCClipping':
+        model = RecurrentDNNCClipping(input_size, hidden_size, num_layers, batch_size, num_classes,
+                              output_activation=output_activation)
 
     return model.to(device)
 
@@ -607,9 +607,9 @@ def train(model, loader, sum_writer, run=0):
             loss.backward()
             optimiser.step()
 
-            print('output sequence = ',output_seq)
-            print('target sequence = ',target_seq)
-            print('loss = ',loss)
+            # print('output sequence = ',output_seq)
+            # print('target sequence = ',target_seq)
+            # print('loss = ',loss)
 
             if print_flag == True:
                 with open(train_log_raw, 'a') as f:
