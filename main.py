@@ -7,7 +7,7 @@ from sklearn.model_selection import train_test_split
 import numpy as np
 import argparse
 import matplotlib.pyplot as plt
-from models import VanillaLSTM, VanillaRNN, VanillaGRU, VanillaReLURNN, VanillaReLURNN_NoBias, VanillaReLURNNCorrectInitialisation, VanillaReLURNNCorrectInitialisationWithBias, RecurrentDNNC, RecurrentDNNCFrozenInputLayer, RecurrentDNNCClipping
+from models import VanillaLSTM, VanillaRNN, VanillaGRU, VanillaReLURNN, VanillaReLURNN_NoBias, VanillaReLURNNCorrectInitialisation, VanillaReLURNNCorrectInitialisationWithBias, RecurrentDNNC, RecurrentDNNCFrozenInputLayer, RecurrentDNNCClipping, RecurrentNonZeroReLUCounter
 from Dyck_Generator_Suzgun_Batch import DyckLanguage
 import random
 from torch.utils.tensorboard import SummaryWriter
@@ -141,6 +141,14 @@ elif runtime=='linux':
        +str(batch_size)+"_batch_size/"+str(learning_rate)+"_learning_rate/"+str(num_epochs)+"_epochs/"\
        +str(lr_scheduler_step)+"_lr_scheduler_step/"+str(lr_scheduler_gamma)+"_lr_scheduler_gamma/"\
        +str(hidden_size)+"_hidden_units/"+str(num_runs)+"_runs/shuffle_"+str(shuffle_dataset)+"/"
+
+import os
+if not os.path.isdir(path):
+        os.makedirs(path)
+        print('FOLDER ',path, 'CREATED')
+else:
+    print('FOLDER',path,'EXISTS')
+
 
 print('model_name = ',model_name)
 print('task = ',task)
@@ -351,6 +359,8 @@ def select_model(model_name, input_size, hidden_size, num_layers,batch_size, num
     elif model_name == 'RecurrentDNNCClipping':
         model = RecurrentDNNCClipping(input_size, hidden_size, num_layers, batch_size, num_classes,
                               output_activation=output_activation)
+    elif model_name=='RecurrentNonZeroReLUCounter':
+        model = RecurrentNonZeroReLUCounter(input_size,hidden_size,num_layers,batch_size,num_classes,output_activation=output_activation)
 
     return model.to(device)
 
