@@ -171,7 +171,7 @@ def select_model(model_name, input_size, hidden_size, num_layers,batch_size, num
 
 
 
-    return selected_model.to(device)
+    return model.to(device)
 
 for run in range(num_runs):
    num_checkpoints = num_epochs
