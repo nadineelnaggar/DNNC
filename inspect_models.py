@@ -176,9 +176,11 @@ def select_model(model_name, input_size, hidden_size, num_layers,batch_size, num
 for run in range(num_runs):
    num_checkpoints = num_epochs
    checkpoint_count = 0
+   print('RUN ',run)
    for epoch in range(num_epochs):
         if epoch%checkpoint_step==0 and checkpoint_count<=num_checkpoints:
             checkpoint_count+=1
+            print('EPOCH ',epoch)
 
             checkpoint_model = select_model(model_name,input_size,hidden_size,num_layers,batch_size,num_classes,output_activation)
             # checkpoint_model.to(device)
