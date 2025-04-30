@@ -198,8 +198,8 @@ def check_weights():
                         print(f"Biases: {param.bias}")
                     else:
                         print(f"Layer: {name} has no gradient.")
-                        print(f"Weights: {param.Weight}")
-                        print(f"Biases: {param.bias}")
+                        # print(f"Weights: {param.Weight}")
+                        # print(f"Biases: {param.bias}")
 
 
 if __name__=='__main__':
