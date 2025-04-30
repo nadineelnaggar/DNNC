@@ -190,7 +190,7 @@ def check_weights():
                 checkpoint_model.load_state_dict(checkpt['model_state_dict'])
                 # checkpoint_model.eval()
                 checkpoint_model.to(device)
-                print('checkpoint model keys = ',checkpoint_model.keys())
+                # print('checkpoint model keys = ',checkpoint_model.keys())
                 print('checkpoint_model.named_parameters() = ',checkpoint_model.named_parameters())
 
                 # for name, param in checkpoint_model.named_parameters():
