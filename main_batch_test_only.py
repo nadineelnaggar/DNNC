@@ -624,14 +624,14 @@ def select_model(model_name, input_size, hidden_size, num_layers,batch_size, num
     elif model_name=='VanillaReLURNNCorrectInitialisationWithBias':
         selected_model = VanillaReLURNNCorrectInitialisationWithBias(input_size, hidden_size, num_layers, batch_size, num_classes, output_activation=output_activation)
     elif model_name=='RecurrentDNNC':
-        model = RecurrentDNNC(input_size, hidden_size, num_layers, batch_size, num_classes, output_activation=output_activation)
+        selected_model = RecurrentDNNC(input_size, hidden_size, num_layers, batch_size, num_classes, output_activation=output_activation)
     elif model_name=='RecurrentDNNCFrozenInputLayer':
-        model = RecurrentDNNCFrozenInputLayer(input_size, hidden_size, num_layers, batch_size, num_classes, output_activation=output_activation)
+        selected_model = RecurrentDNNCFrozenInputLayer(input_size, hidden_size, num_layers, batch_size, num_classes, output_activation=output_activation)
     elif model_name == 'RecurrentDNNCClipping':
-        model = RecurrentDNNCClipping(input_size, hidden_size, num_layers, batch_size, num_classes,
+        selected_model = RecurrentDNNCClipping(input_size, hidden_size, num_layers, batch_size, num_classes,
                               output_activation=output_activation)
     elif model_name=='RecurrentNonZeroReLUCounter':
-        model = RecurrentNonZeroReLUCounter(input_size,hidden_size,num_layers,batch_size,num_classes,output_activation=output_activation)
+        selected_model = RecurrentNonZeroReLUCounter(input_size,hidden_size,num_layers,batch_size,num_classes,output_activation=output_activation)
 
 
 
