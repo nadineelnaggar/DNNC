@@ -191,18 +191,20 @@ def check_weights():
                 # checkpoint_model.eval()
                 checkpoint_model.to(device)
                 # print('checkpoint model keys = ',checkpoint_model.keys())
-                print('checkpoint_model.named_parameters() = ',checkpoint_model.named_parameters())
+                # print('checkpoint_model.named_parameters() = ',checkpoint_model.named_parameters())
 
-                # for name, param in checkpoint_model.named_parameters():
-                #     if param.grad is not None:
-                #         print(f"Layer: {name}")
-                #         print(f"Gradient: {param.grad}")
-                #         print(f"Weights: {param.Weight}")
-                #         print(f"Biases: {param.bias}")
-                #     else:
-                #         print(f"Layer: {name} has no gradient.")
-                #         # print(f"Weights: {param.Weight}")
-                #         # print(f"Biases: {param.bias}")
+                for name, param in checkpoint_model.named_parameters():
+                    print('param.data =',param.data)
+                    print('name = ',name)
+                    # if param.grad is not None:
+                    #     print(f"Layer: {name}")
+                    #     print(f"Gradient: {param.grad}")
+                    #     print(f"Weights: {param.Weight}")
+                    #     print(f"Biases: {param.bias}")
+                    # else:
+                    #     print(f"Layer: {name} has no gradient.")
+                    #     # print(f"Weights: {param.Weight}")
+                    #     # print(f"Biases: {param.bias}")
 
 
 if __name__=='__main__':
