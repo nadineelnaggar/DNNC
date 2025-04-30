@@ -188,7 +188,9 @@ def check_weights():
 
                 checkpt = torch.load(checkpoint_path)
                 checkpoint_model.load_state_dict(checkpt['model_state_dict'])
+                # checkpoint_model.eval()
                 checkpoint_model.to(device)
+                print('checkpoint model keys = ',checkpoint_model.keys())
 
                 for name, param in checkpoint_model.named_parameters():
                     if param.grad is not None:
