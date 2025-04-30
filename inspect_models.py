@@ -172,29 +172,35 @@ def select_model(model_name, input_size, hidden_size, num_layers,batch_size, num
 
 
     return model.to(device)
+def check_weights():
+    for run in range(num_runs):
+       num_checkpoints = num_epochs
+       checkpoint_count = 0
+       print('RUN ',run)
+       for epoch in range(num_epochs):
+            if epoch%checkpoint_step==0 and checkpoint_count<=num_checkpoints:
+                checkpoint_count+=1
+                print('EPOCH ',epoch)
 
-for run in range(num_runs):
-   num_checkpoints = num_epochs
-   checkpoint_count = 0
-   print('RUN ',run)
-   for epoch in range(num_epochs):
-        if epoch%checkpoint_step==0 and checkpoint_count<=num_checkpoints:
-            checkpoint_count+=1
-            print('EPOCH ',epoch)
+                checkpoint_model = select_model(model_name,input_size,hidden_size,num_layers,batch_size,num_classes,output_activation)
+                # checkpoint_model.to(device)
+                checkpoint_path = checkpoint+'run'+str(run)+"_epoch"+str(epoch)+".pth"
 
-            checkpoint_model = select_model(model_name,input_size,hidden_size,num_layers,batch_size,num_classes,output_activation)
-            # checkpoint_model.to(device)
-            checkpoint_path = checkpoint+'run'+str(run)+"_epoch"+str(epoch)+".pth"
+                checkpt = torch.load(checkpoint_path)
+                checkpoint_model.load_state_dict(checkpt['model_state_dict'])
+                checkpoint_model.to(device)
 
-            checkpt = torch.load(checkpoint_path)
-            checkpoint_model.load_state_dict(checkpt['model_state_dict'])
-            checkpoint_model.to(device)
-
-            for name, param in checkpoint_model.named_parameters():
-                if param.grad is not None:
-                    print(f"Layer: {name}")
-                    print(f"Gradient: {param.grad}")
-                else:
-                    print(f"Layer: {name} has no gradient.")
+                for name, param in checkpoint_model.named_parameters():
+                    if param.grad is not None:
+                        print(f"Layer: {name}")
+                        print(f"Gradient: {param.grad}")
+                        print(f"Weights: {param.weight}")
+                        print(f"Biases: {param.bias}")
+                    else:
+                        print(f"Layer: {name} has no gradient.")
+                        print(f"Weights: {param.weight}")
+                        print(f"Biases: {param.bias}")
 
 
+if __name__=='__main__':
+    check_weights()
