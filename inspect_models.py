@@ -194,11 +194,11 @@ def check_weights():
                     if param.grad is not None:
                         print(f"Layer: {name}")
                         print(f"Gradient: {param.grad}")
-                        print(f"Weights: {param.weight}")
+                        print(f"Weights: {param.Weight}")
                         print(f"Biases: {param.bias}")
                     else:
                         print(f"Layer: {name} has no gradient.")
-                        print(f"Weights: {param.weight}")
+                        print(f"Weights: {param.Weight}")
                         print(f"Biases: {param.bias}")
 
 
