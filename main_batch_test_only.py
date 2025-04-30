@@ -816,7 +816,7 @@ def main():
     if task == 'TernaryClassification':
         num_classes = 3
         output_activation = 'Softmax'
-    elif task == 'BinaryClassification' or task == 'NextTokenPrediction' or task=='NextTokenPredictionCrossEntropy' or task=='SemiDyck1MSE' or task=='SemiDyck1BCE':
+    elif task == 'BinaryClassification' or task == 'NextTokenPrediction' or task=='NextTokenPredictionCrossEntropy' or task=='SemiDyck1MSE' or task=='SemiDyck1BCE' or task=='NextTokenPredictionSanityCheck':
         num_classes = 2
         output_activation = 'Sigmoid'
 
