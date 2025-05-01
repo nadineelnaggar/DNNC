@@ -13,7 +13,7 @@ import random
 from torch.utils.tensorboard import SummaryWriter
 # from tensorboardX import SummaryWriter
 from torch.utils.data import Dataset, DataLoader
-from Dyck1_Datasets import NextTokenPredictionLongTestDataset, NextTokenPredictionShortTestDataset, NextTokenPredictionTrainDataset, NextTokenPredictionValidationDataset, NextTokenPredictionLongTestDataset_SAMPLE, NextTokenPredictionShortTestDataset_SAMPLE, NextTokenPredictionTrainDataset_SAMPLE, NextTokenPredictionValidationDataset_SAMPLE, NextTokenPrediction2TokenDataset
+from Dyck1_Datasets import NextTokenPredictionLongTestDataset, NextTokenPredictionShortTestDataset, NextTokenPredictionTrainDataset, NextTokenPredictionValidationDataset, NextTokenPredictionLongTestDataset_SAMPLE, NextTokenPredictionShortTestDataset_SAMPLE, NextTokenPredictionTrainDataset_SAMPLE, NextTokenPredictionValidationDataset_SAMPLE, NextTokenPrediction2TokenDataset, NextTokenPrediction2and4TokenDataset
 from torch.optim.lr_scheduler import StepLR
 import math
 import time
@@ -314,7 +314,7 @@ if task=='SemiDyck1MSE' or task=='SemiDyck1BCE':
 elif task=='NextTokenPredictionSanityCheck':
     train_dataset = NextTokenPrediction2TokenDataset()
     test_dataset = NextTokenPrediction2TokenDataset()
-    long_dataset = NextTokenPrediction2TokenDataset()
+    long_dataset = NextTokenPrediction2and4TokenDataset()
     validation_dataset = NextTokenPrediction2TokenDataset()
 else:
     train_dataset = NextTokenPredictionTrainDataset()
