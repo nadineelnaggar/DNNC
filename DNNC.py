@@ -322,7 +322,7 @@ class DNNCNoFalsePop(Function):
             # grad_stackdepth_out_falsepop_in = 0
             # grad_falsepop_out_stackdepth_in = 0
         elif ctx.op == 'Pop':
-            if state[0]==0: #if stack is empty
+            if state==0: #if stack is empty
                 grad_stackdepth_out_stackdepth_in=0
                 # grad_falsepop_out_falsepop_in=1
                 # grad_falsepop_out_stackdepth_in=-1
