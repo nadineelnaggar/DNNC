@@ -278,7 +278,7 @@ class DNNCNoFalsePop(Function):
     def backward(ctx, grad_output):
 
 
-        grad_output_stack_depth = grad_output.item().clone().detach()
+        grad_output_stack_depth = grad_output.item()#.clone().detach()
         # grad_output_falsepop = grad_output[1].clone().detach()
         grad_push_stack_depth = torch.tensor(1, dtype=torch.float32)
         # grad_push_falsepop = torch.tensor(0, dtype=torch.float32)
