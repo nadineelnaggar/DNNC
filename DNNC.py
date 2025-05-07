@@ -251,14 +251,14 @@ class DNNCNoFalsePop(Function):
 
         if op == 'Push':
 
-            output[0]=state[0]+1
+            output[0]=state+1
 
         elif op=='Pop':
             if state[0]>0:
-                output[0] = state[0]-1
+                output[0] = state-1
 
-            elif state[0]==0:
-                output[1]=state[1]+1
+            # elif state[0]==0:
+            #     output[1]=state+1
 
         elif op=='NoOp':
 
