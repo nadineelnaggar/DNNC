@@ -854,9 +854,9 @@ class RecurrentDNNCNoFalsePop(nn.Module):
         for i in range(x.size()[1]):
             print('x[0][',i,'] before DNNC = ', x[0][i])
             x1[0][i] = self.dnnc(x[0][i], y)
-            # print('x1[0][',i,'] = ',x1[0][i])
+            print('x1[0][',i,'] = ',x1[0][i])
         #     y = x1[0][i].clone().detach()
-            y = x1[0][i].clone()
+            y = x1[0][i][0].clone()
             print('y after DNNC = ',y)
         print('x after DNNC ',x1)
 
