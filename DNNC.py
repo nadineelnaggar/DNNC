@@ -391,7 +391,7 @@ class DNNCNNNoFalsePop(nn.Module):
         self.reset()
         # self.stack_depth+=x[0]
         # self.false_pop_count+=x[1]
-        self.stack_depth += x[0]
+        self.stack_depth += x.item()
 
 
         return x
