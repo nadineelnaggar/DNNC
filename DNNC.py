@@ -334,7 +334,7 @@ class DNNCNoFalsePop(Function):
                 # grad_falsepop_out_stackdepth_in = 0
         # grad_y = None
         grad_state = grad_output.clone()
-        grad_state_stackdepth = (grad_stackdepth_out_stackdepth_in*grad_state[0])#+(grad_falsepop_out_stackdepth_in*grad_state[1])
+        grad_state_stackdepth = (grad_stackdepth_out_stackdepth_in*grad_state.item())#+(grad_falsepop_out_stackdepth_in*grad_state[1])
         # grad_state_falsepop = (grad_stackdepth_out_falsepop_in*grad_state[0])+(grad_falsepop_out_falsepop_in*grad_state[1])
         # grad_state = torch.tensor([grad_state_stackdepth,grad_state_falsepop],requires_grad=True)
         grad_state = torch.tensor([grad_state_stackdepth], requires_grad=True)
