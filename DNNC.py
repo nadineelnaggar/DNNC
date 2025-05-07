@@ -290,7 +290,7 @@ class DNNCNoFalsePop(Function):
         grad_input = grad_output.clone()
 
 
-        if state[0]==0:
+        if state.item()==0:
             grad_pop_stack_depth = torch.tensor(0, dtype=torch.float32)
             # grad_pop_falsepop = torch.tensor(1, dtype=torch.float32)
         else:
