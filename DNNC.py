@@ -299,8 +299,8 @@ class DNNCNoFalsePop(Function):
 
         # multiply input gradients by output gradients and return the correct one (4 cases) and return 2 values
 
-        grad_pop = (grad_pop_stack_depth*grad_input[0]) #+ (grad_pop_falsepop*grad_input[1])
-        grad_push = (grad_push_stack_depth*grad_input[0]) #+ (grad_push_falsepop*grad_input[1])
+        grad_pop = (grad_pop_stack_depth*grad_input.item()) #+ (grad_pop_falsepop*grad_input[1])
+        grad_push = (grad_push_stack_depth*grad_input.item()) #+ (grad_push_falsepop*grad_input[1])
 
 
 
