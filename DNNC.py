@@ -385,7 +385,7 @@ class DNNCNNNoFalsePop(nn.Module):
         # print('x input to DNNC ',x)
         # print('y input to DNNC ',y)
         x = self.dnnc(x,y)
-        print('x after DNNC',x)
+        # print('x after DNNC',x)
 
 
         self.reset()
