@@ -880,3 +880,16 @@ class RecurrentDNNCNoFalsePop(nn.Module):
         x = self.sigmoid(x).view(-1, self.output_size)
 
         return x
+    def init_hidden(self):
+        return torch.zeros(self.num_layers, self.batch_size, self.hidden_size).to(device)
+
+    def mask(self, Y_hat, Y, X_lengths):
+        Y_hat_out = torch.zeros(Y_hat.shape)
+
+        max_batch_length = max(X_lengths)
+
+        for i in range(self.batch_size):
+            Y_hat_out[i * max_batch_length:(i * max_batch_length + X_lengths[i])] = Y_hat[i * max_batch_length:(
+                        i * max_batch_length + X_lengths[i])]
+
+        return Y_hat_out.to(device)
