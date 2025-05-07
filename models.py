@@ -833,7 +833,8 @@ class RecurrentDNNCNoFalsePop(nn.Module):
         self.fc1 = nn.Linear(input_size,hidden_size)
         # self.dnnc = DNNC()
         self.dnnc = DNNCNNNoFalsePop()
-        self.fc2 = nn.Linear(hidden_size,output_size)
+        # self.fc2 = nn.Linear(hidden_size,output_size)
+        self.fc2 = nn.Linear(1, output_size)
         self.sigmoid = nn.Sigmoid()
         self.model_name='RecurrentDNNCNoFalsePop'
 
