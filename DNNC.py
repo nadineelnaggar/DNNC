@@ -388,8 +388,9 @@ class DNNCNNNoFalsePop(nn.Module):
 
 
         self.reset()
-        self.stack_depth+=x[0]
+        # self.stack_depth+=x[0]
         # self.false_pop_count+=x[1]
+        self.stack_depth += x
 
 
         return x
@@ -441,11 +442,13 @@ class DFRC(Function):
 
         if op == 'Push':
 
-            output[0]=state[0]+1
+            # output[0]=state[0]+1
+            output = state + 1
 
         elif op=='Pop':
             # if state[0]>0:
-            output[0] = state[0]-1
+            # output[0] = state[0]-1
+            output = state - 1
 
             # elif state[0]==0:
             #     output[1]=state[1]+1
@@ -468,10 +471,13 @@ class DFRC(Function):
     def backward(ctx, grad_output):
 
 
-        grad_output_stack_depth = grad_output[0].clone().detach()
-        # grad_output_falsepop = grad_output[1].clone().detach()
+        # grad_output_stack_depth = grad_output[0].clone().detach()
+        # # grad_output_falsepop = grad_output[1].clone().detach()
+        # grad_push_stack_depth = torch.tensor(1, dtype=torch.float32)
+        # # grad_push_falsepop = torch.tensor(0, dtype=torch.float32)
+
+        grad_output_stack_depth = grad_output.clone().detach()
         grad_push_stack_depth = torch.tensor(1, dtype=torch.float32)
-        # grad_push_falsepop = torch.tensor(0, dtype=torch.float32)
 
         input, state = ctx.saved_tensors
 
@@ -480,7 +486,7 @@ class DFRC(Function):
         grad_input = grad_output.clone()
 
 
-        if state[0]==0:
+        if state==0:
             grad_pop_stack_depth = torch.tensor(0, dtype=torch.float32)
             # grad_pop_falsepop = torch.tensor(1, dtype=torch.float32)
         else:
@@ -489,10 +495,10 @@ class DFRC(Function):
 
         # multiply input gradients by output gradients and return the correct one (4 cases) and return 2 values
 
-        grad_pop = (grad_pop_stack_depth*grad_input[0]) #+ (grad_pop_falsepop*grad_input[1])
-        grad_push = (grad_push_stack_depth*grad_input[0])# + (grad_push_falsepop*grad_input[1])
-
-
+        # grad_pop = (grad_pop_stack_depth*grad_input[0]) #+ (grad_pop_falsepop*grad_input[1])
+        # grad_push = (grad_push_stack_depth*grad_input[0])# + (grad_push_falsepop*grad_input[1])
+        grad_pop = (grad_pop_stack_depth * grad_input[0])  # + (grad_pop_falsepop*grad_input[1])
+        grad_push = (grad_push_stack_depth * grad_input[0])  # + (grad_push_falsepop*grad_input[1])
 
         grad_input = torch.tensor([grad_push, grad_pop], requires_grad=True)
 
