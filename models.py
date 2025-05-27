@@ -859,6 +859,7 @@ class RecurrentDNNCNoFalsePop(nn.Module):
             y = x1[0][i][0].clone()
         #     print('y after DNNC = ',y)
         print('x after DNNC ',x1)
+        print('y after DNNC ',y)
 
         # x, _ = pad_packed_sequence(x, batch_first=True)
         #
