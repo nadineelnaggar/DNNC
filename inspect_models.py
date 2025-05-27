@@ -181,6 +181,8 @@ def check_weights():
     for run in range(num_runs):
        num_checkpoints = num_epochs
        checkpoint_count = 0
+       # print('RUN ',run)
+       print('######################################################')
        print('RUN ',run)
        for epoch in range(num_epochs):
             if epoch%checkpoint_step==0 and checkpoint_count<=num_checkpoints:
@@ -200,8 +202,8 @@ def check_weights():
                 # print('checkpoint_model.named_parameters() = ',checkpoint_model.named_parameters())
 
                 for name, param in checkpoint_model.named_parameters():
-                    print('name = ', name)
-                    print('param.data =',param.data)
+                    print('name = ', name, 'param.data = ',param.data)
+                    # print('param.data =',param.data)
                     # print('name = ',name)
                     # if param.grad is not None:
                     #     print(f"Layer: {name}")
