@@ -196,8 +196,9 @@ def check_weights():
                 # print('checkpoint_model.named_parameters() = ',checkpoint_model.named_parameters())
 
                 for name, param in checkpoint_model.named_parameters():
+                    print('name = ', name)
                     print('param.data =',param.data)
-                    print('name = ',name)
+                    # print('name = ',name)
                     # if param.grad is not None:
                     #     print(f"Layer: {name}")
                     #     print(f"Gradient: {param.grad}")
