@@ -182,6 +182,7 @@ def check_weights():
        for epoch in range(num_epochs):
             if epoch%checkpoint_step==0 and checkpoint_count<=num_checkpoints:
                 checkpoint_count+=1
+                print('RUN ', run)
                 print('EPOCH ',epoch)
 
                 checkpoint_model = select_model(model_name,input_size,hidden_size,num_layers,batch_size,num_classes,output_activation)
