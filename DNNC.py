@@ -394,8 +394,8 @@ class DNNCNNNoFalsePop(nn.Module):
         self.stack_depth += x.item()
 
 
-        # return x
-        return self.stack_depth
+        return x
+        # return self.stack_depth
 
     def editDNNCState(self, new_stack_depth):
         if new_stack_depth<0:
