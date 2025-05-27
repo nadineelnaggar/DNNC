@@ -844,9 +844,9 @@ class RecurrentDNNCNoFalsePop(nn.Module):
 
     def forward(self,x,length):
 
-        # print('x before linear layer ',x)
+        print('x before linear layer ',x)
         x = self.fc1(x)
-        # print('x after linear layer ',x)
+        print('x after linear layer ',x)
 
         x1 = x.clone()
         y = torch.tensor([0], dtype=torch.float32)
@@ -858,7 +858,7 @@ class RecurrentDNNCNoFalsePop(nn.Module):
         #     y = x1[0][i].clone().detach()
             y = x1[0][i][0].clone()
         #     print('y after DNNC = ',y)
-        # print('x after DNNC ',x1)
+        print('x after DNNC ',x1)
 
         # x, _ = pad_packed_sequence(x, batch_first=True)
         #
@@ -868,8 +868,10 @@ class RecurrentDNNCNoFalsePop(nn.Module):
         # x = x.clone()
         x = x1.clone()
         x = self.fc2(x)
+        print('x after fc2 ',x)
 
         x = self.sigmoid(x).view(-1, self.output_size)
+        print('x after sigmoid ',x)
 
         return x
     def init_hidden(self):
