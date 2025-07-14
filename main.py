@@ -616,18 +616,18 @@ def train(model, loader, sum_writer, run=0):
 
 
             output_seq=model.mask(output_seq, target_seq, length)
-            print('params before loss')
-            for name, param in model.named_parameters():
-                print('name = ', name, 'param.data = ', param.data)
+            # print('params before loss')
+            # for name, param in model.named_parameters():
+            #     print('name = ', name, 'param.data = ', param.data)
             loss = criterion(output_seq, target_seq)
 
             total_loss += loss.item()
             loss.backward()
             optimiser.step()
 
-            print('params after loss')
-            for name, param in model.named_parameters():
-                print('name = ', name, 'param.data = ', param.data)
+            # print('params after loss')
+            # for name, param in model.named_parameters():
+            #     print('name = ', name, 'param.data = ', param.data)
             # print('output sequence = ',output_seq)
             # print('target sequence = ',target_seq)
             # print('loss = ',loss)
