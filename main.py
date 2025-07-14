@@ -13,7 +13,7 @@ import random
 from torch.utils.tensorboard import SummaryWriter
 # from tensorboardX import SummaryWriter
 from torch.utils.data import Dataset, DataLoader
-from Dyck1_Datasets import NextTokenPredictionLongTestDataset, NextTokenPredictionShortTestDataset, NextTokenPredictionTrainDataset, NextTokenPredictionValidationDataset, NextTokenPredictionLongTestDataset_SAMPLE, NextTokenPredictionShortTestDataset_SAMPLE, NextTokenPredictionTrainDataset_SAMPLE, NextTokenPredictionValidationDataset_SAMPLE, NextTokenPrediction2TokenDataset, NextTokenPrediction2and4TokenDataset, NextTokenPrediction2TokenPlusDataset
+from Dyck1_Datasets import NextTokenPredictionLongTestDataset, NextTokenPredictionShortTestDataset, NextTokenPredictionTrainDataset, NextTokenPredictionValidationDataset, NextTokenPredictionLongTestDataset_SAMPLE, NextTokenPredictionShortTestDataset_SAMPLE, NextTokenPredictionTrainDataset_SAMPLE, NextTokenPredictionValidationDataset_SAMPLE, NextTokenPrediction2TokenDataset, NextTokenPrediction2and4TokenDataset, NextTokenPrediction2TokenPlusDataset, NextTokenPrediction1to2TokenDataset
 from torch.optim.lr_scheduler import StepLR
 import math
 import time
@@ -321,6 +321,11 @@ elif task=='NextTokenPredictionSanityCheck2':
     test_dataset = NextTokenPrediction2TokenPlusDataset()
     long_dataset = NextTokenPrediction2and4TokenDataset()
     validation_dataset = NextTokenPrediction2TokenPlusDataset()
+elif task=='NextTokenPredictionSanityCheck3':
+    train_dataset = NextTokenPrediction1to2TokenDataset()
+    test_dataset = NextTokenPrediction1to2TokenDataset()
+    long_dataset = NextTokenPrediction2and4TokenDataset()
+    validation_dataset = NextTokenPrediction1to2TokenDataset()
 else:
     train_dataset = NextTokenPredictionTrainDataset()
     test_dataset = NextTokenPredictionShortTestDataset()
@@ -390,7 +395,7 @@ def main():
     if task == 'TernaryClassification':
         num_classes = 3
         output_activation = 'Softmax'
-    elif task == 'BinaryClassification' or task == 'NextTokenPrediction' or task == 'NextTokenPredictionCrossEntropy' or task=='SemiDyck1MSE' or task=='SemiDyck1BCE' or task=='NextTokenPredictionSanityCheck' or task=='NextTokenPredictionSanityCheck2':
+    elif task == 'BinaryClassification' or task == 'NextTokenPrediction' or task == 'NextTokenPredictionCrossEntropy' or task=='SemiDyck1MSE' or task=='SemiDyck1BCE' or task=='NextTokenPredictionSanityCheck' or task=='NextTokenPredictionSanityCheck2' or task=='NextTokenPredictionSanityCheck3':
         num_classes = 2
         output_activation = 'Sigmoid'
 
