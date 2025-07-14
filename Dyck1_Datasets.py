@@ -940,7 +940,7 @@ class NextTokenPrediction2TokenPlusDataset(Dataset):
         self.y = []
         self.lengths = []
         # self.n_samples = xy.shape[0]
-        with open('Dyck1_Dataset_Suzgun_2tokens_with_((.txt.txt', 'r') as f:
+        with open('Dyck1_Dataset_Suzgun_2tokens_with_((.txt', 'r') as f:
             for line in f:
                 line = line.split(",")
                 sentence = line[0].strip()
